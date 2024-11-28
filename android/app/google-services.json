@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "971132661416",
+    "project_id": "gmcm-e1bde",
+    "storage_bucket": "gmcm-e1bde.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:971132661416:android:75d36ef50e0ec490aa9c9d",
+        "android_client_info": {
+          "package_name": "com.example.gmcm"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDiWOf_QxX1MF63wpkzfdXYEvIAm25LxAM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
