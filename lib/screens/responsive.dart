@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gmcm/constants.dart';
 class Responsive extends StatefulWidget {
   final Widget mobileScreen;
   final Widget webScreen;
@@ -15,9 +16,13 @@ class _ResponsiveState extends State<Responsive> {
     return LayoutBuilder(
        builder: (context, constraints) {
          if(constraints.maxWidth<900){
+          isMobile=true;
+          isWeb=false;
           return widget.mobileScreen;
          }
          else {
+          isMobile=false;
+          isWeb=true;
           return widget.webScreen;
          }
        },

@@ -1,14 +1,82 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:gmcm/constants.dart';
+import 'package:gmcm/screens/auth/login_screen.dart';
+import 'package:gmcm/widgets/input_field.dart';
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
 
   @override
-  State SignupScreen> createState() =>  SignupScreenState();
+  State<SignupScreen> createState() => _SignupScreenState();
 }
 
-class  SignupScreenState extends State SignupScreen> {
+class _SignupScreenState extends State<SignupScreen> {
+  final TextEditingController _emailController=TextEditingController();
+  final TextEditingController _passwordController=TextEditingController();
+  final TextEditingController _usernameController=TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return Container();
+    var width=MediaQuery.of(context).size.width;
+    return Scaffold(
+      body: Center(
+        child: SizedBox(
+          width:isWeb?width/4:width/1.2,
+          child: SingleChildScrollView(
+          child: Center(
+            child: Column(
+              children: [
+                Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const Text("Signup Page",style:TextStyle(fontSize:30),),
+                      const SizedBox(height: 35,),
+                      InputField(
+                        hintText: "Username",
+                        controller: _emailController,
+                      ),
+                      const SizedBox(
+                        height: 25,
+                      ),
+                      InputField(
+                        hintText: "Email",
+                        controller: _emailController,
+                      ),
+                      const SizedBox(
+                        height: 25,
+                      ),
+                      InputField(
+                        hintText: "Password",
+                        controller: _passwordController,
+                      ),
+                      const SizedBox(
+                        height: 25,
+                      ),
+                      ElevatedButton(onPressed: (){}, child: const Text("Signup"))
+                    ]),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        const SizedBox(height: 10,),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text("Already an user ?"),
+                        TextButton(onPressed: () {
+                          Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>LoginScreen()));
+                        },child:const Text("Login")),
+                          ],
+                        ),
+                        
+                      ],
+                    ),
+              ],
+              
+            ),
+          ),
+                ),
+        ),
+      )
+    );
   }
 }
