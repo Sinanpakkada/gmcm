@@ -33,9 +33,10 @@ dependencies:
   provider: ^6.0.0  # State management
   http: ^1.0.0  # For making HTTP requests
   firebase_core: ^2.0.0  # Firebase core
-  firebase_auth: ^4.0.0  # For authentication
+  firebase_auth: ^4.20.0  # For authentication
   cloud_firestore: ^4.0.0  # For database
   flutter_secure_storage: ^5.0.0  # Secure storage for tokens
+  another_flushbar: ^1.12.30
 
 
 dev_dependencies:

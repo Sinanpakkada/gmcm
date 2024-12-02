@@ -52,7 +52,14 @@ class _SignupScreenState extends State<SignupScreen> {
                       const SizedBox(
                         height: 25,
                       ),
-                      ElevatedButton(onPressed: (){}, child: const Text("Signup"))
+                      ElevatedButton(onPressed: (){
+                        if(_emailController.text.isEmpty||_passwordController.text.isEmpty||_usernameController.text.isEmpty){
+                          showFlushBar(context,"error","email,username or password can't be empty");
+                        }
+                        else{
+                          _signUp(_usernameController.text,_emailController.text,_passwordController.text);
+                        }
+                      }, child: const Text("Signup"))
                     ]),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.end,
