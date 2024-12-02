@@ -1,7 +1,8 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gmcm/constants.dart';
+import 'package:gmcm/methodes/auth_methodes.dart';
 import 'package:gmcm/screens/auth/login_screen.dart';
+import 'package:gmcm/screens/home_screen.dart';
 import 'package:gmcm/widgets/input_field.dart';
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -85,5 +86,31 @@ class _SignupScreenState extends State<SignupScreen> {
         ),
       )
     );
+  }
+  void _signUp(String email,String password,String username)async{
+    setState(() {
+    showFlushBar(context, "Wait", "Processing");
+  });
+  String result = await AuthMethods().SignUpUser(email: email, password: password, username: username);
+
+  // Process the result
+  if (result == "Success") {
+    setState(() {
+      showFlushBar(context, "Success", "Successfully signed up");
+    });
+
+    // Navigate to the home screen
+    Future.delayed(const Duration(seconds: 2), () {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => Homescreen()), // Ensure Homescreen is defined
+      );
+    });
+  } else {
+    setState(() {
+      // Show error message
+      showFlushBar(context, "Error", result);
+    });
+  }
   }
 }

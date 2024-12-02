@@ -1,10 +1,10 @@
-import 'package:flutter/foundation.dart';
+
 import 'package:flutter/material.dart';
 import 'package:gmcm/constants.dart';
 import 'package:gmcm/methodes/auth_methodes.dart';
 import 'package:gmcm/screens/auth/signup_screen.dart';
+import 'package:gmcm/screens/home_screen.dart';
 import 'package:gmcm/widgets/input_field.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
@@ -46,14 +46,16 @@ class _LoginScreenState extends State<LoginScreen> {
                       const SizedBox(
                         height: 25,
                       ),
-                      ElevatedButton(onPressed: (){
-                        if(_emailController.text.isEmpty||_passwordController.text.isEmpty){
-                          showFlushBar(context, "error", "Email or Password cant be empty");
-                        }
-                        else{
-                          _login(_emailController,_passwordController);
-                        }
-                      }, child: Text("Login"))
+                      ElevatedButton(
+  onPressed: () {
+    if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {
+      showFlushBar(context, "Error", "Email or Password can't be empty");
+    } else {
+      _login(_emailController.text, _passwordController.text);
+    }
+  },
+  child: const Text("Login"),
+),
                     ],
                     ),
                     Column(
@@ -81,19 +83,32 @@ class _LoginScreenState extends State<LoginScreen> {
       )
     );
   }
-  void _login(String email,String password)async{
+  void _login(String email, String password) async {
+  setState(() {
+    showFlushBar(context, "Wait", "Processing");
+  });
+
+  // Call the login method
+  String result = await AuthMethods().loginuser(email: email, password: password);
+
+  // Process the result
+  if (result == "Success") {
     setState(() {
-      showFlushBar(context, "Wait", "Processing")
-    });
-    String result=await AuthMethods().loginuser(email:email,password:password);
-    setState(() {
-      if(result=="Success"){
-        showFlushBar(context, result, "Succesfully logged in");
-        Future.delayed(Duration(seconds: 2),(){
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Homescreen()));
-        });
-      }
+      showFlushBar(context, "Success", "Successfully logged in");
     });
 
+    // Navigate to the home screen
+    Future.delayed(const Duration(seconds: 2), () {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => Homescreen()), // Ensure Homescreen is defined
+      );
+    });
+  } else {
+    setState(() {
+      // Show error message
+      showFlushBar(context, "Error", result);
+    });
   }
+}
 }
